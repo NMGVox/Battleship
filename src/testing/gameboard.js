@@ -54,18 +54,69 @@ function gameBoardFactory() {
         for (let i = 0; i < len; i++) {
             gameBoard.spaces[coord[0]][coord[1]+i] = newShip;
         }
+        gameBoard.ships.push(newShip);
+        return true;
+    }
+
+    function receiveAttack(coord) {
+        let x = coord[0];
+        let y = coord[1];
+        let attackedSpace = gameBoard.spaces[x][y];
+
+        if( attackedSpace === 'x' ) {
+            return false;
+        }
+        if( gameBoard.ships.includes(attackedSpace) ) {
+            attackedSpace.isHit();
+            gameBoard.spaces[x][y] = 'o';
+            return;
+        }
+        gameBoard.spaces[x][y] = 'x';
         return;
-    } //  I need to validate the spaces. Check if every space in len's range has a ship or is in bounds.
-    //  Do not worry about rotation at this juncture.
+    }
+
+    function allShipsSunk() {
+        return gameBoard.ships.every(
+            (ship) => ship.sunk === true
+        );
+    }
 
     const gameBoard = 
     {
         ships, 
         spaces,
-        placeShip
-    }
+        placeShip,
+        receiveAttack,
+        allShipsSunk
+    };
 
     return gameBoard;
 }
 
-module.exports = gameBoardFactory;
+function createPlayer(type) {
+    const gameBoard = gameBoardFactory();
+
+    if(type === 'cpu') {
+        let lengths = [5,4,3,3,2];
+        for(let i = 0; i < lengths.length; i++) {
+            let x = Math.floor(Math.random() * 8);
+            let y = Math.floor(Math.random() * 8);
+            let res = gameBoard.placeShip(lengths[i], [x, y]);
+            if(!res) {
+                i--;
+                continue;
+            }
+        }
+    }
+    
+    const player = {
+        type,
+        gameBoard
+    };
+    return player;
+}
+
+module.exports = {
+    gameBoardFactory,
+    createPlayer
+};
