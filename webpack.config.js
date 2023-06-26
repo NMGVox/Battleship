@@ -15,7 +15,7 @@
      new HtmlWebpackPlugin({
        template: 'src/index.html',
      }),
-     new ESLintPlugin(options),
+     new ESLintPlugin,
    ],
    output: {
      filename: '[name].bundle.js',

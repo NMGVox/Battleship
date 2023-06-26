@@ -116,3 +116,5 @@ module.exports = {
     gameBoardFactory,
     createPlayer,
 };
+
+export default createPlayer;
