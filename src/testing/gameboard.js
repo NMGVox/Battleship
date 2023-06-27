@@ -27,7 +27,7 @@ function shipFactory(len) {
 
 function gameBoardFactory() {
     const ships = [];
-    const spaces = [...Array(8)].map(() => Array(8));
+    const spaces = [...Array(10)].map(() => Array(10));
     let gameBoard;
 
     function isValidPlacement(len, coord) {
@@ -37,11 +37,26 @@ function gameBoardFactory() {
              if (gameBoard.spaces[x][y] !== undefined) {
                 return false;
             }
-            if (!((x < 8 && x >= 0) && (y < 8 && y >= 0))) {
+            if (!((x < 10 && x >= 0) && (y < 10 && y >= 0))) {
                 return false;
             }
         }
         return true;
+    }
+
+    function displayBoard() {
+        let boardArea = document.createElement('div');
+        boardArea.classList.add('boardArea');
+        for (let x = 0; x < 10; x++) {
+            for (let y = 0; y < 10; y++) {
+                let newSpace = document.createElement('div');
+                newSpace.classList.add('boardSpace');
+                newSpace.setAttribute('data-row', x);
+                newSpace.setAttribute('data-col', y);
+                boardArea.appendChild(newSpace);
+            }
+        }
+        document.querySelector('body').appendChild(boardArea);
     }
 
     function placeShip(len, coord) {
@@ -85,6 +100,7 @@ function gameBoardFactory() {
         placeShip,
         receiveAttack,
         allShipsSunk,
+        displayBoard,
     };
 
     return gameBoard;

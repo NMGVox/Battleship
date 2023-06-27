@@ -9,7 +9,7 @@ test('Create a player with type hum', () => {
 
 test('Create a player with type hum and an empty gameBoard object', () => {
     let newPlayer = createPlayer('hum');
-    expect(newPlayer.gameBoard).toMatchObject({ ships: [], spaces: [...Array(8)].map(() => Array(8)) });
+    expect(newPlayer.gameBoard).toMatchObject({ ships: [], spaces: [...Array(10)].map(() => Array(10)) });
 });
 
 // test('Create a player with type cpu and an empty gameBoard object', () => {

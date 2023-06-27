@@ -3,7 +3,7 @@ const modules = require('./gameboard');
 const { gameBoardFactory } = modules;
 
 test('Return an empty gameBoard', () => {
-    expect(gameBoardFactory()).toMatchObject({ ships: [], spaces: [...Array(8)].map(() => Array(8)) });
+    expect(gameBoardFactory()).toMatchObject({ ships: [], spaces: [...Array(10)].map(() => Array(10)) });
 });
 
 test('Place a ship of length 1 at coordinate (2,5)', () => {
