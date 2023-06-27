@@ -21,6 +21,10 @@ module.exports = {
     indent: ['off', 'tab'],
     'no-plusplus': 'off',
     'prefer-const': 'off',
+    'import/named': 'off',
+    'import/prefer-default-export': 'off',
+    quotes: 'off',
+    'max-len': ['error', 150],
   },
   plugins: ['jest'],
 };

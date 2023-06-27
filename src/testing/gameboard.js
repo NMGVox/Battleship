@@ -115,4 +115,5 @@ function createPlayer(type) {
 module.exports = {
     gameBoardFactory,
     createPlayer,
+    shipFactory,
 };

@@ -112,9 +112,4 @@ function createPlayer(type) {
     return player;
 }
 
-module.exports = {
-    gameBoardFactory,
-    createPlayer,
-};
-
-export default createPlayer;
+export { createPlayer };

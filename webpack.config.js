@@ -15,7 +15,7 @@
      new HtmlWebpackPlugin({
        template: 'src/index.html',
      }),
-     new ESLintPlugin,
+     new ESLintPlugin(),
    ],
    output: {
      filename: '[name].bundle.js',
@@ -43,10 +43,10 @@
           loader: 'babel-loader',
           options: {
             presets: [
-              ['@babel/preset-env', { targets: "defaults" }]
-            ]
-          }
-        }
+              ['@babel/preset-env', { targets: 'defaults' }],
+            ],
+          },
+        },
       },
      ],
    },
