@@ -30,21 +30,6 @@ function gameBoardFactory() {
     const spaces = [...Array(10)].map(() => Array(10));
     let gameBoard;
 
-    function isValidPlacement(len, coord) {
-        for (let i = 0; i < len; i++) {
-            const x = Number(coord[0]);
-            const y = Number(coord[1]) + i;
-            console.log(`${x} and ${y}`);
-             if (gameBoard.spaces[x][y] !== undefined) {
-                return false;
-            }
-            if (!((x < 10 && x >= 0) && (y < 10 && y >= 0))) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     function displayBoard() {
         let boardArea = document.createElement('div');
         boardArea.classList.add('boardArea');
@@ -60,14 +45,29 @@ function gameBoardFactory() {
         document.querySelector('body').appendChild(boardArea);
     }
 
+    function isValidPlacement(len, x, y) {
+        for (let i = 0; i < len; i++) {
+             if (gameBoard.spaces[x][y + i] !== undefined) {
+                return false;
+            }
+            if (!((x < 10 && x >= 0) && (y + i < 10 && y + i >= 0))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     function placeShip(len, coord) {
         const newShip = shipFactory(len);
-        if (!isValidPlacement(len, coord)) {
-            console.log(`uh-oh ${len}`);
+        const x = Number(coord[0]);
+        const y = Number(coord[1]);
+        if (!isValidPlacement(len, x, y)) {
             return false;
         }
         for (let i = 0; i < len; i++) {
-            gameBoard.spaces[coord[0]][coord[1] + i] = newShip;
+            gameBoard.spaces[x][y + i] = newShip;
+            let targetSpace = document.querySelector(`[data-row="${x}"][data-col="${y + i}"]`);
+            targetSpace.classList.add('carrier');
         }
         gameBoard.ships.push(newShip);
         return true;

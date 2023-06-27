@@ -12,10 +12,8 @@ function allowShipPlacement(length) {
             let coords = [];
             coords.push(space.getAttribute('data-row'));
             coords.push(space.getAttribute('data-col'));
-            console.log(coords);
             let res = players[0].gameBoard.placeShip(length, coords);
             if (!res) {
-                console.log("Uhhh...");
                 return res;
             }
             Array.from(boardCells).forEach((cell) => {
@@ -35,7 +33,6 @@ async function placeShips() {
     let shipLengths = [5, 4, 3, 3, 2];
     for (let i = 0; i < shipLengths.length; i++) {
         /* eslint-disable no-await-in-loop */
-        console.log(`Place your ship of lenght:  ${shipLengths[i]}`);
         let placement = await allowShipPlacement(shipLengths[i]);
         console.log(placement);
     }
