@@ -25,6 +25,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     quotes: 'off',
     'max-len': ['error', 150],
+    "no-unused-vars": "off",
   },
   plugins: ['jest'],
 };

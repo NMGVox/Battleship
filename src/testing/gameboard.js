@@ -2,6 +2,7 @@ function shipFactory(len) {
     const length = len;
     const hits = 0;
     let ship;
+    let orientation = 0;
 
     function isSunk() {
         if (ship.hits === ship.length) {
@@ -14,12 +15,22 @@ function shipFactory(len) {
         isSunk();
     }
 
+    function changeOrientation() {
+        if (orientation === 0) {
+            orientation = 1;
+        } else {
+            orientation = 0;
+        }
+    }
+
     ship = {
         length,
         hits,
         sunk: false,
         isHit,
         isSunk,
+        changeOrientation,
+        getOrientation: () => orientation,
     };
 
     return ship;
@@ -29,20 +40,6 @@ function gameBoardFactory() {
     const ships = [];
     const spaces = [...Array(10)].map(() => Array(10));
     let gameBoard;
-
-    function isValidPlacement(len, coord) {
-        for (let i = 0; i < len; i++) {
-            const x = coord[0];
-            const y = coord[1] + i;
-             if (gameBoard.spaces[x][y] !== undefined) {
-                return false;
-            }
-            if (!((x < 10 && x >= 0) && (y < 10 && y >= 0))) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     function displayBoard() {
         let boardArea = document.createElement('div');
@@ -59,13 +56,29 @@ function gameBoardFactory() {
         document.querySelector('body').appendChild(boardArea);
     }
 
+    function isValidPlacement(len, x, y) {
+        for (let i = 0; i < len; i++) {
+             if (gameBoard.spaces[x][y + i] !== undefined) {
+                return false;
+            }
+            if (!((x < 10 && x >= 0) && (y + i < 10 && y + i >= 0))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     function placeShip(len, coord) {
         const newShip = shipFactory(len);
-        if (!isValidPlacement(len, coord)) {
-            return null;
+        const x = Number(coord[0]);
+        const y = Number(coord[1]);
+        if (!isValidPlacement(len, x, y)) {
+            return false;
         }
         for (let i = 0; i < len; i++) {
-            gameBoard.spaces[coord[0]][coord[1] + i] = newShip;
+            gameBoard.spaces[x][y + i] = newShip;
+            let targetSpace = document.querySelector(`[data-row="${x}"][data-col="${y + i}"]`);
+            targetSpace.classList.add('carrier');
         }
         gameBoard.ships.push(newShip);
         return true;
@@ -112,8 +125,8 @@ function createPlayer(type) {
     if (type === 'cpu') {
         const lengths = [5, 4, 3, 3, 2];
         for (let i = 0; i < lengths.length; i++) {
-            const x = Math.floor(Math.random() * 8);
-            const y = Math.floor(Math.random() * 8);
+            const x = Math.floor(Math.random() * 10);
+            const y = Math.floor(Math.random() * 10);
             const res = gameBoard.placeShip(lengths[i], [x, y]);
             if (!res) {
                 i--;
@@ -129,7 +142,7 @@ function createPlayer(type) {
 }
 
 module.exports = {
-    gameBoardFactory,
     createPlayer,
     shipFactory,
+    gameBoardFactory,
 };

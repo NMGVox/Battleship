@@ -23,3 +23,21 @@ test('Test isSunk ship function', () => {
     }
     expect(newShip.sunk).toEqual(true);
 });
+
+test('Test new orientation property.', () => {
+    let newShip = shipFactory(3);
+    expect(newShip.getOrientation()).toBe(0);
+});
+
+test('Switch orientation to 1', () => {
+    let newShip = shipFactory(4);
+    newShip.changeOrientation();
+    expect(newShip.getOrientation()).toBe(1);
+});
+
+test('Switch orientation to 1, the back to 0', () => {
+    let newShip = shipFactory(4);
+    newShip.changeOrientation();
+    newShip.changeOrientation();
+    expect(newShip.getOrientation()).toBe(0);
+});
