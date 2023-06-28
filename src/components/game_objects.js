@@ -56,9 +56,9 @@ function gameBoardFactory() {
         document.querySelector('body').appendChild(boardArea);
     }
 
-    function generateSpaces(ship, len, x, y) {
+    function generateSpaces(orientation, len, x, y) {
         let occupied = [];
-        if (ship.getOrientation() === 0) {
+        if (orientation === 0) {
             for (let i = 0; i < len; i++) {
                 occupied.push([x, y + i]);
             }
@@ -74,19 +74,19 @@ function gameBoardFactory() {
         for (let i = 0; i < shipOccupancy.length; i++) {
             let x = shipOccupancy[i][0];
             let y = shipOccupancy[i][1];
-            if (gameBoard.spaces[x][y] !== undefined) {
+            if (!((x < 10 && x >= 0) && (y < 10 && y >= 0))) {
                 return false;
             }
-            if (!((x < 10 && x >= 0) && (y < 10 && y >= 0))) {
+            if (gameBoard.spaces[x][y] !== undefined) {
                 return false;
             }
         }
         return true;
     }
 
-    function placeShip(len, coord) {
+    function placeShip(len, coord, orientation) {
         const newShip = shipFactory(len);
-        const shipOccupancy = generateSpaces(newShip, len, Number(coord[0]), Number(coord[1]));
+        const shipOccupancy = generateSpaces(orientation, len, Number(coord[0]), Number(coord[1]));
         if (!isValidPlacement(shipOccupancy)) {
             return false;
         }
