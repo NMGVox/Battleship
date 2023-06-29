@@ -95,6 +95,7 @@ function gameBoardFactory() {
             let y = shipOccupancy[i][1];
             gameBoard.spaces[x][y] = newShip;
             let targetSpace = document.querySelector(`[data-row="${x}"][data-col="${y}"]`);
+            targetSpace.classList.remove('ghost');
             targetSpace.classList.add('carrier');
         }
         gameBoard.ships.push(newShip);
@@ -131,6 +132,7 @@ function gameBoardFactory() {
         receiveAttack,
         allShipsSunk,
         displayBoard,
+        generateSpaces,
     };
 
     return gameBoard;
