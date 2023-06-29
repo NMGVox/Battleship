@@ -41,6 +41,13 @@ function gameBoardFactory() {
     const spaces = [...Array(10)].map(() => Array(10));
     let gameBoard;
 
+    function noShipsLeft() {
+        const allSunk = ships.every(
+            (ship) => (ship.isSunk === true),
+        );
+        return allSunk;
+    }
+
     function displayBoard() {
         let boardArea = document.createElement('div');
         boardArea.classList.add('boardArea');
