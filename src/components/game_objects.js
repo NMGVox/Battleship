@@ -62,7 +62,6 @@ function gameBoardFactory() {
                 spaceElements[x][y] = newSpace;
             }
         }
-        console.log(spaceElements);
         document.querySelector('body').appendChild(boardArea);
     }
 
@@ -114,6 +113,12 @@ function gameBoardFactory() {
         return true;
     }
 
+    function allShipsSunk() {
+        return gameBoard.ships.every(
+            (ship) => ship.sunk === true,
+        );
+    }
+
     function receiveAttack(coord) {
         const x = coord[0];
         const y = coord[1];
@@ -125,16 +130,12 @@ function gameBoardFactory() {
         if (gameBoard.ships.includes(attackedSpace)) {
             attackedSpace.isHit();
             gameBoard.spaces[x][y] = 'o';
+            gameBoard.spaceElements[x][y].style.backgroundColor = 'blue';
             return true;
         }
         gameBoard.spaces[x][y] = 'x';
+        gameBoard.spaceElements[x][y].style.backgroundColor = 'red';
         return true;
-    }
-
-    function allShipsSunk() {
-        return gameBoard.ships.every(
-            (ship) => ship.sunk === true,
-        );
     }
 
     gameBoard = {
@@ -145,6 +146,7 @@ function gameBoardFactory() {
         allShipsSunk,
         displayBoard,
         generateSpaces,
+        spaceElements,
     };
 
     return gameBoard;
