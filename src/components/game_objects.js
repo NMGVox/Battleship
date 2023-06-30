@@ -39,6 +39,7 @@ function shipFactory(len) {
 function gameBoardFactory() {
     const ships = [];
     const spaces = [...Array(10)].map(() => Array(10));
+    const spaceElements = [...Array(10)].map(() => Array(10));
     let gameBoard;
 
     function noShipsLeft() {
@@ -58,8 +59,10 @@ function gameBoardFactory() {
                 newSpace.setAttribute('data-row', x);
                 newSpace.setAttribute('data-col', y);
                 boardArea.appendChild(newSpace);
+                spaceElements[x][y] = newSpace;
             }
         }
+        console.log(spaceElements);
         document.querySelector('body').appendChild(boardArea);
     }
 
@@ -82,9 +85,11 @@ function gameBoardFactory() {
             let x = shipOccupancy[i][0];
             let y = shipOccupancy[i][1];
             if (!((x < 10 && x >= 0) && (y < 10 && y >= 0))) {
+                document.querySelector('#error').textContent = `Can't place here!`;
                 return false;
             }
             if (gameBoard.spaces[x][y] !== undefined) {
+                document.querySelector('#error').textContent = `Can't place here!`;
                 return false;
             }
         }
@@ -101,7 +106,7 @@ function gameBoardFactory() {
             let x = shipOccupancy[i][0];
             let y = shipOccupancy[i][1];
             gameBoard.spaces[x][y] = newShip;
-            let targetSpace = document.querySelector(`[data-row="${x}"][data-col="${y}"]`);
+            let targetSpace = spaceElements[x][y];
             targetSpace.classList.remove('ghost');
             targetSpace.classList.add('carrier');
         }
@@ -149,11 +154,13 @@ function createPlayer(type) {
     const gameBoard = gameBoardFactory();
 
     if (type === 'cpu') {
+        gameBoard.displayBoard();
         const lengths = [5, 4, 3, 3, 2];
         for (let i = 0; i < lengths.length; i++) {
             const x = Math.floor(Math.random() * 10);
             const y = Math.floor(Math.random() * 10);
-            const res = gameBoard.placeShip(lengths[i], [x, y]);
+            const o = Math.floor(Math.random() * 2);
+            const res = gameBoard.placeShip(lengths[i], [x, y], o);
             if (!res) {
                 i--;
             }

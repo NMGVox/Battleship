@@ -5,8 +5,19 @@ import './style.css';
 let players = [];
 //  let activePlayer = null;
 
-window.addEventListener('load', () => {
+function mainLoop() {
+    document.querySelector('#error').textContent = 'Begin!';
+}
+
+async function initializeGame() {
     players.push(createPlayer('hum'));
     players[0].gameBoard.displayBoard();
-    placeShips(players);
-});
+    await placeShips(players);
+    players.push(createPlayer('cpu'));
+    let startGame = document.createElement('button');
+    startGame.addEventListener('pointerdown', mainLoop);
+    startGame.textContent = "Click here to start!";
+    document.querySelector('body').appendChild(startGame);
+}
+
+window.addEventListener('load', initializeGame);

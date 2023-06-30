@@ -100,12 +100,10 @@ async function placeShips(players) {
         /* eslint-disable no-await-in-loop */
         instructions.textContent = `Place your ${shipNames[i]}!`;
         await allowShipPlacement(shipLengths[i], players);
+        document.querySelector('#error').textContent = ``;
     }
     /* eslint-enable no-await-in-loop */
     instructions.textContent = 'Press the button to start!';
-    let startGame = document.createElement('button');
-    startGame.textContent = "Click here to start!";
-    document.querySelector('body').appendChild(startGame);
 }
 
 window.addEventListener('mousemove', (e) => {
