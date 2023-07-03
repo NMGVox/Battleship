@@ -132,10 +132,12 @@ function gameBoardFactory() {
             gameBoard.spaces[x][y] = 'o';
             gameBoard.spaceElements[x][y].style.backgroundColor = 'blue';
             return true;
+        } if (gameBoard.spaces[x][y] === undefined) {
+            gameBoard.spaces[x][y] = 'x';
+            gameBoard.spaceElements[x][y].style.backgroundColor = 'red';
+            return true;
         }
-        gameBoard.spaces[x][y] = 'x';
-        gameBoard.spaceElements[x][y].style.backgroundColor = 'red';
-        return true;
+        return false;
     }
 
     gameBoard = {
@@ -154,6 +156,8 @@ function gameBoardFactory() {
 
 function createPlayer(type) {
     const gameBoard = gameBoardFactory();
+    const moveStack = [];
+    let lastMove;
 
     if (type === 'cpu') {
         gameBoard.displayBoard();
@@ -172,6 +176,8 @@ function createPlayer(type) {
     const player = {
         type,
         gameBoard,
+        moveStack,
+        lastMove,
     };
     return player;
 }

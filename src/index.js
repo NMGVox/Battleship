@@ -5,7 +5,7 @@ import './style.css';
 let players = [];
 //  let activePlayer = null;
 
-function playerInput(inactive) {
+function playerInput(activePlayer, inactive) {
     return new Promise((resolve) => {
         let disableBoardControl = () => {};
 
@@ -38,7 +38,19 @@ function playerInput(inactive) {
             });
         };
 
-        console.log(inactive);
+        if (activePlayer.type === 'cpu') {
+            while (true) {
+                let x = Math.floor(Math.random() * 10);
+                let y = Math.floor(Math.random() * 10);
+                let res = inactive.gameBoard.receiveAttack([x, y]);
+                if (res) {
+                    break;
+                }
+            }
+            disableBoardControl(inactive);
+            resolve(true);
+            return;
+        }
         enableBoardControl(inactive);
     });
 }
@@ -50,7 +62,7 @@ async function mainLoop() {
     let inactivePlayer = players[1];
     while (!activePlayer.gameBoard.allShipsSunk()) {
          /* eslint-disable no-await-in-loop */
-        await playerInput(inactivePlayer);
+        await playerInput(activePlayer, inactivePlayer);
         turn++;
         activePlayer = players[turn % 2];
         inactivePlayer = players[Math.abs((turn - 1) % 2)];
