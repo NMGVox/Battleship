@@ -6,13 +6,20 @@ import './style.css';
 let players = [];
 //  let activePlayer = null;
 
+function timed(interval) {
+    return new Promise((resolve) => {
+        setTimeout(resolve, interval);
+    });
+}
+
 async function mainLoop() {
     document.querySelector('#startgame').remove();
     let turn = 0;
     let activePlayer = players[0];
     let inactivePlayer = players[1];
     while (!activePlayer.gameBoard.allShipsSunk()) {
-         /* eslint-disable no-await-in-loop */
+        /* eslint-disable no-await-in-loop */
+        await timed(activePlayer.type === 'cpu' ? 1000 : 0);
         await playerInput(activePlayer, inactivePlayer);
         turn++;
         activePlayer = players[turn % 2];

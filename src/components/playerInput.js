@@ -62,20 +62,22 @@ function playerInput(activePlayer, inactive) {
             }
         };
 
+        const getCPUCoordinates = () => {
+            let x;
+            let y;
+            if (activePlayer.moveStack.length > 0) {
+                let nextMove = activePlayer.moveStack.pop();
+                [x, y] = nextMove;
+            } else {
+                x = Math.floor(Math.random() * 10);
+                y = Math.floor(Math.random() * 10);
+            }
+            return [x, y];
+        };
+
         if (activePlayer.type === 'cpu') {
             while (true) {
-                let x;
-                let y;
-                if (activePlayer.moveStack.length > 0) {
-                    let nextMove = activePlayer.moveStack.pop();
-                    // eslint-disable-next-line prefer-destructuring
-                    x = nextMove[0];
-                    // eslint-disable-next-line prefer-destructuring
-                    y = nextMove[1];
-                } else {
-                    x = Math.floor(Math.random() * 10);
-                    y = Math.floor(Math.random() * 10);
-                }
+                let [x, y] = getCPUCoordinates();
                 let res = inactive.gameBoard.receiveAttack([x, y]);
                 if (res[0]) {
                     populateStack(x, y, res[1], activePlayer);

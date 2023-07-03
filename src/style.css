@@ -59,8 +59,13 @@ body {
     border: 2px solid black;
 }
 
+.boardArea:hover {
+	cursor: crosshair;
+}
+
 .boardSpace {
     border: 1px solid black;
+	transition: all .5s;
 }
 
 .carrier {
