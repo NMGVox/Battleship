@@ -22,6 +22,9 @@ async function mainLoop() {
 }
 
 async function initializeGame() {
+    let rembutton = document.querySelector('#placeShips');
+    rembutton.removeEventListener('pointerdown', initializeGame);
+    rembutton.remove();
     players.push(createPlayer('hum'));
     players[0].gameBoard.displayBoard();
     await placeShips(players);
@@ -33,4 +36,12 @@ async function initializeGame() {
     document.querySelector('body').appendChild(startGame);
 }
 
-window.addEventListener('load', initializeGame);
+function displayGameButton() {
+    let button = document.createElement('button');
+    button.id = 'placeShips';
+    button.addEventListener('pointerdown', initializeGame);
+    button.textContent = "Start Placing your Ships!";
+    document.querySelector('body').appendChild(button);
+}
+
+window.addEventListener('load', displayGameButton);
