@@ -119,25 +119,36 @@ function gameBoardFactory() {
         );
     }
 
-    function receiveAttack(coord) {
-        const x = coord[0];
-        const y = coord[1];
-        const attackedSpace = gameBoard.spaces[x][y];
-
-        if (attackedSpace === 'x') {
-            return false;
-        }
-        if (gameBoard.ships.includes(attackedSpace)) {
-            attackedSpace.isHit();
-            gameBoard.spaces[x][y] = 'o';
-            gameBoard.spaceElements[x][y].style.backgroundColor = 'blue';
-            return true;
-        } if (gameBoard.spaces[x][y] === undefined) {
-            gameBoard.spaces[x][y] = 'x';
-            gameBoard.spaceElements[x][y].style.backgroundColor = 'red';
+    function isAttackOutOfBounds(x, y) {
+        if (!((x < 10 && x >= 0) && (y < 10 && y >= 0))) {
             return true;
         }
         return false;
+    }
+
+    function receiveAttack(coord) {
+        const x = coord[0];
+        const y = coord[1];
+
+        if (isAttackOutOfBounds(x, y)) {
+            return [false, null];
+        }
+
+        const attackedSpace = gameBoard.spaces[x][y];
+
+        if (attackedSpace === 'x') {
+            return [false, null];
+        }
+        if (gameBoard.ships.includes(attackedSpace)) {
+            attackedSpace.isHit();
+            gameBoard.spaceElements[x][y].style.backgroundColor = 'blue';
+            return [true, 'ship'];
+        } if (gameBoard.spaces[x][y] === undefined) {
+            gameBoard.spaces[x][y] = 'x';
+            gameBoard.spaceElements[x][y].style.backgroundColor = 'red';
+            return [true, 'empty'];
+        }
+        return [false, null];
     }
 
     gameBoard = {

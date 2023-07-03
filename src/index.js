@@ -1,59 +1,10 @@
 import { createPlayer } from './components/game_objects';
 import { placeShips } from './components/placeShips';
+import { playerInput } from './components/playerInput';
 import './style.css';
 
 let players = [];
 //  let activePlayer = null;
-
-function playerInput(activePlayer, inactive) {
-    return new Promise((resolve) => {
-        let disableBoardControl = () => {};
-
-        const registerAttack = (e) => {
-            let cell = e.target;
-            let x = Number(cell.getAttribute('data-row'));
-            let y = Number(cell.getAttribute('data-col'));
-            let res = inactive.gameBoard.receiveAttack([x, y]);
-            if (!res) {
-                return false;
-            }
-            disableBoardControl(inactive);
-            resolve(res);
-            return res;
-        };
-
-        disableBoardControl = (p) => {
-            p.gameBoard.spaceElements.forEach((row) => {
-                for (let i = 0; i < row.length; i++) {
-                    row[i].removeEventListener('pointerdown', registerAttack);
-                }
-            });
-        };
-
-        const enableBoardControl = (p) => {
-            p.gameBoard.spaceElements.forEach((row) => {
-                for (let i = 0; i < row.length; i++) {
-                    row[i].addEventListener('pointerdown', registerAttack);
-                }
-            });
-        };
-
-        if (activePlayer.type === 'cpu') {
-            while (true) {
-                let x = Math.floor(Math.random() * 10);
-                let y = Math.floor(Math.random() * 10);
-                let res = inactive.gameBoard.receiveAttack([x, y]);
-                if (res) {
-                    break;
-                }
-            }
-            disableBoardControl(inactive);
-            resolve(true);
-            return;
-        }
-        enableBoardControl(inactive);
-    });
-}
 
 async function mainLoop() {
     document.querySelector('#startgame').remove();

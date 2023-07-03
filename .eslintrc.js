@@ -26,6 +26,7 @@ module.exports = {
     quotes: 'off',
     'max-len': ['error', 150],
     "no-unused-vars": "off",
+    "no-param-reassign": ["error", { props: false }],
   },
   plugins: ['jest'],
 };
