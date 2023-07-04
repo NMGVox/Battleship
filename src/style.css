@@ -50,8 +50,17 @@ body {
 	flex-direction: column;
 }
 
+.initialDiv {
+	height: 50vh;
+	width: 60vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: black;
+}
+
 .boardArea {
-    height: 400px;
+    width: clamp(150px, 40%, 70%);
     aspect-ratio: 1 / 1;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
@@ -74,4 +83,42 @@ body {
 
 .ghost {
 	background-color: grey;
+}
+
+.gameArea {
+	width: 90vw;
+	height: 80vh;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	border:2px solid black;
+}
+
+.playerArea {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height:100%;
+	width:100%;
+	border: 1px solid black;
+	transition: all 1.5s;
+}
+
+.playerArea.enlarge{
+	width:80%;
+}
+
+.playerArea.smaller {
+	width:20%;
+}
+
+#error {
+	color:red;
+	font-size: 1.2rem;
+	height: 1.2rem;
+}
+
+#instructions {
+	font-size: 2rem;
+	font-weight: bold;
 }

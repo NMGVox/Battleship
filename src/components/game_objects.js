@@ -40,6 +40,7 @@ function gameBoardFactory() {
     const ships = [];
     const spaces = [...Array(10)].map(() => Array(10));
     const spaceElements = [...Array(10)].map(() => Array(10));
+    let playArea;
     let gameBoard;
 
     function noShipsLeft() {
@@ -50,6 +51,9 @@ function gameBoardFactory() {
     }
 
     function displayBoard() {
+        let playerArea = document.createElement('div');
+        playerArea.classList.add('playerArea');
+        gameBoard.playArea = playerArea;
         let boardArea = document.createElement('div');
         boardArea.classList.add('boardArea');
         for (let x = 0; x < 10; x++) {
@@ -62,7 +66,8 @@ function gameBoardFactory() {
                 spaceElements[x][y] = newSpace;
             }
         }
-        document.querySelector('body').appendChild(boardArea);
+        playerArea.appendChild(boardArea);
+        document.querySelector('.gameArea').appendChild(playerArea);
     }
 
     function generateSpaces(orientation, len, x, y) {
@@ -160,6 +165,7 @@ function gameBoardFactory() {
         displayBoard,
         generateSpaces,
         spaceElements,
+        playArea,
     };
 
     return gameBoard;

@@ -1,4 +1,5 @@
 import { shipNames } from './lengthsToNames';
+import { displayInstructions } from './displayInstructions';
 
 let mouseposition;
 
@@ -95,15 +96,14 @@ function allowShipPlacement(length, players) {
 
 async function placeShips(players) {
     let shipLengths = [5, 4, 3, 3, 2];
-    let instructions = document.querySelector('#instructions');
     for (let i = 0; i < shipLengths.length; i++) {
         /* eslint-disable no-await-in-loop */
-        instructions.textContent = `Place your ${shipNames[i]}!`;
+        displayInstructions(`Place your ${shipNames[i]}!`);
         await allowShipPlacement(shipLengths[i], players);
         document.querySelector('#error').textContent = ``;
     }
     /* eslint-enable no-await-in-loop */
-    instructions.textContent = 'Press the button to start!';
+    displayInstructions('Press the button to start!');
 }
 
 window.addEventListener('mousemove', (e) => {
