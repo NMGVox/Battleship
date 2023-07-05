@@ -5,7 +5,21 @@ import { displayInstructions } from './components/displayInstructions';
 import './style.css';
 
 let players = [];
-//  let activePlayer = null;
+
+function restartGame() {
+    while (players.length > 0) {
+        players.pop();
+    }
+    let restartBtn = document.querySelector('#restart');
+    restartBtn.removeEventListener('pointerdown', restartGame);
+    restartBtn.remove();
+    document.querySelector('.initialDiv').style.display = 'flex';
+    // eslint-disable-next-line no-use-before-define
+    document.querySelector('#placeShips').addEventListener('pointerdown', initializeGame);
+    document.querySelector('#error').textContent = '';
+    document.querySelector('#instructions').textContent = '';
+    document.querySelector('.gameArea').remove();
+}
 
 function timed(interval) {
     return new Promise((resolve) => {
@@ -39,6 +53,12 @@ async function mainLoop() {
         inactivePlayer = players[Math.abs((turn - 1) % 2)];
     }
     displayInstructions(`Player ${Math.abs((turn - 1) % 2) + 1} Wins!`);
+    let restartBtn = document.createElement('button');
+    restartBtn.id = 'restart';
+    restartBtn.classList.add('genericBtn');
+    restartBtn.addEventListener('pointerdown', restartGame);
+    restartBtn.textContent = "Play Again!";
+    document.querySelector('body').appendChild(restartBtn);
 }
 
 async function initializeGame() {

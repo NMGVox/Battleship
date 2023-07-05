@@ -1,4 +1,4 @@
-function shipFactory(len) {
+function shipFactory(len, name) {
     const length = len;
     const hits = 0;
     let ship;
@@ -138,9 +138,9 @@ function gameBoardFactory() {
         if (isAttackOutOfBounds(x, y)) {
             return [false, null];
         }
+        gameBoard.spaceElements[x][y].classList.remove('hide');
 
         const attackedSpace = gameBoard.spaces[x][y];
-
         if (attackedSpace === 'x') {
             return [false, null];
         }
@@ -188,6 +188,11 @@ function createPlayer(type) {
                 i--;
             }
         }
+        gameBoard.spaceElements.forEach((elerow) => {
+            elerow.forEach((ele) => {
+                ele.classList.add('hide');
+            });
+        });
     }
 
     const player = {
