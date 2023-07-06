@@ -55,10 +55,10 @@ async function mainLoop() {
     displayInstructions(`Player ${Math.abs((turn - 1) % 2) + 1} Wins!`);
     let restartBtn = document.createElement('button');
     restartBtn.id = 'restart';
-    restartBtn.classList.add('genericBtn');
+    restartBtn.classList.add('gamebtn');
     restartBtn.addEventListener('pointerdown', restartGame);
     restartBtn.textContent = "Play Again!";
-    document.querySelector('body').appendChild(restartBtn);
+    document.querySelector('.main').appendChild(restartBtn);
 }
 
 async function initializeGame() {
@@ -67,7 +67,7 @@ async function initializeGame() {
     document.querySelector('.initialDiv').style.display = 'none';
     let gameArea = document.createElement('div');
     gameArea.classList.add('gameArea');
-    document.querySelector('body').appendChild(gameArea);
+    document.querySelector('.main').appendChild(gameArea);
     players.push(createPlayer('hum'));
     players[0].gameBoard.displayBoard();
     await placeShips(players);
@@ -75,17 +75,19 @@ async function initializeGame() {
     document.querySelector('#error').textContent = '';
     let startGame = document.createElement('button');
     startGame.id = 'startgame';
+    startGame.classList.add('gamebtn');
     startGame.addEventListener('pointerdown', mainLoop);
     startGame.textContent = "Click here to start!";
-    document.querySelector('body').appendChild(startGame);
+    document.querySelector('.main').appendChild(startGame);
 }
 
 function displayGameButton() {
     let div = document.createElement('div');
     div.classList.add('initialDiv');
-    document.querySelector('body').appendChild(div);
+    document.querySelector('.main').appendChild(div);
     let button = document.createElement('button');
     button.id = 'placeShips';
+    button.classList.add('gamebtn');
     button.addEventListener('pointerdown', initializeGame);
     button.textContent = "Start Placing your Ships!";
     div.appendChild(button);

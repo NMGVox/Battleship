@@ -1,4 +1,4 @@
-function shipFactory(len, name) {
+function shipFactory(len) {
     const length = len;
     const hits = 0;
     let ship;
@@ -42,13 +42,6 @@ function gameBoardFactory() {
     const spaceElements = [...Array(10)].map(() => Array(10));
     let playArea;
     let gameBoard;
-
-    function noShipsLeft() {
-        const allSunk = ships.every(
-            (ship) => (ship.isSunk === true),
-        );
-        return allSunk;
-    }
 
     function displayBoard() {
         let playerArea = document.createElement('div');

@@ -1,3 +1,4 @@
+/* eslint-disable no-constant-condition */
 function playerInput(activePlayer, inactive) {
     return new Promise((resolve) => {
         let disableBoardControl = () => {};

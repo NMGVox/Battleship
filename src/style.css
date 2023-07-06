@@ -43,11 +43,40 @@ table {
 }
 
 body {
-    display: flex;
+    display: grid;
     justify-content: center;
     align-items: center;
     height:100vh;
+	background-color: #bbbbbb;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 1fr 8fr .5fr;
+	grid-column-gap: 0px;
+	grid-row-gap: 5px;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	height:100%;
+}
+
+.heading-tabs {
+	display:flex;
+	align-items: center;
+	justify-content: flex-end;
+	margin-left: auto;
+	gap: 10px;
+	margin-right: 16px;
+}
+
+.main {
+	display:flex;
+	justify-content: center;
+	align-items: center;
 	flex-direction: column;
+	gap: 2vh;
+	height: 100%;
 }
 
 .initialDiv {
@@ -56,16 +85,49 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: black;
+	border-radius: 33px;
+	background: linear-gradient(145deg, #163e62, #1a4a75);
+	box-shadow:  16px 16px 19px #164065,
+             -16px -16px 19px #1a4a75;
+}
+
+.gameArea {
+	width: 90vw;
+	height: 90%;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+	border:2px solid black;
 }
 
 .boardArea {
-    width: clamp(150px, 40%, 70%);
+    width: clamp(150px, 30%, 40%);
     aspect-ratio: 1 / 1;
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
     border: 2px solid black;
+}
+
+.playerArea {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height:100%;
+	width:100%;
+	transition: all 1.5s;
+}
+
+.playerArea:first-child {
+	border-right: solid 2px black;
+}
+
+.playerArea.enlarge{
+	width:80%;
+}
+
+.playerArea.smaller {
+	width:20%;
 }
 
 .boardArea:hover {
@@ -85,33 +147,6 @@ body {
 	background-color: grey;
 }
 
-.gameArea {
-	width: 90vw;
-	height: 80vh;
-	display:flex;
-	justify-content: center;
-	align-items: center;
-	border:2px solid black;
-}
-
-.playerArea {
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	height:100%;
-	width:100%;
-	border: 1px solid black;
-	transition: all 1.5s;
-}
-
-.playerArea.enlarge{
-	width:80%;
-}
-
-.playerArea.smaller {
-	width:20%;
-}
-
 #error {
 	color:red;
 	font-size: 1.2rem;
@@ -126,3 +161,25 @@ body {
 .hide {
 	background-color: transparent;
 }
+
+.gamebtn{
+	min-width: 130px;
+	height: 20%;
+	width: 25%;
+	font-size: 1.4rem;
+	color: #fff;
+	padding: 5px 10px;
+	font-weight: bold;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	position: relative;
+	display: inline-block;
+	outline: none;
+	border-radius: 5px;
+	border: 4px solid #b4cafa31;
+	background: #1a4a75;
+  }
+  .gamebtn:hover {
+	background: #fff;
+	color: #1a4a75;
+  }
