@@ -43,15 +43,15 @@ async function mainLoop() {
     let activePlayer = players[0];
     let inactivePlayer = players[1];
     switchSize(1, activePlayer, inactivePlayer);
-    while (!activePlayer.gameBoard.allShipsSunk()) {
-        /* eslint-disable no-await-in-loop */
-        displayInstructions(`Player ${Math.abs(turn % 2) + 1} is aiming...`);
-        await timed(activePlayer.type === 'cpu' ? 2000 : 500);
-        await playerInput(activePlayer, inactivePlayer);
-        turn++;
-        activePlayer = players[turn % 2];
-        inactivePlayer = players[Math.abs((turn - 1) % 2)];
-    }
+    // while (!activePlayer.gameBoard.allShipsSunk()) {
+    //     /* eslint-disable no-await-in-loop */
+    //     displayInstructions(`Player ${Math.abs(turn % 2) + 1} is aiming...`);
+    //     await timed(activePlayer.type === 'cpu' ? 2000 : 500);
+    //     await playerInput(activePlayer, inactivePlayer);
+    //     turn++;
+    //     activePlayer = players[turn % 2];
+    //     inactivePlayer = players[Math.abs((turn - 1) % 2)];
+    // }
     displayInstructions(`Player ${Math.abs((turn - 1) % 2) + 1} Wins!`);
     let restartBtn = document.createElement('button');
     restartBtn.id = 'restart';
@@ -85,6 +85,10 @@ function displayGameButton() {
     let div = document.createElement('div');
     div.classList.add('initialDiv');
     document.querySelector('.main').appendChild(div);
+    let title = document.createElement('h1');
+    title.classList.add('title');
+    title.textContent = "Battleship";
+    div.appendChild(title);
     let button = document.createElement('button');
     button.id = 'placeShips';
     button.classList.add('gamebtn');
