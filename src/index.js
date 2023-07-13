@@ -2,6 +2,7 @@ import { createPlayer } from './components/game_objects';
 import { placeShips } from './components/placeShips';
 import { playerInput } from './components/playerInput';
 import { displayInstructions } from './components/displayInstructions';
+import { buildHowTo } from './components/howToPlay';
 import waves from './img/wave.svg';
 import './style.css';
 
@@ -82,30 +83,6 @@ async function initializeGame() {
     document.querySelector('.main').appendChild(startGame);
 }
 
-function showHowTo() {
-    let container = document.querySelector('.tutContainer');
-    container.classList.add('show');
-}
-
-function closeHowTo() {
-    let container = document.querySelector('.tutContainer');
-    container.classList.remove('show');
-}
-
-function buildHowTo() {
-    let tutorialContainer = document.createElement('div');
-    let closebutton = document.createElement('div');
-    closebutton.id = 'closeHowTo';
-    closebutton.addEventListener('pointerdown', closeHowTo);
-    tutorialContainer.appendChild(closebutton);
-    let title = document.createElement('h1');
-    tutorialContainer.classList.add("tutContainer");
-    title.textContent = "How to Play!";
-    title.classList.add('tutHeader');
-    tutorialContainer.appendChild(title);
-    document.querySelector('body').appendChild(tutorialContainer);
-}
-
 function displayGameButton() {
     // let waveimg = document.createElement('img');
     // waveimg.src = waves;
@@ -132,5 +109,3 @@ window.addEventListener('load', displayGameButton);
 document.querySelector('#source').addEventListener('pointerdown', () => {
     window.open('https://github.com/NMGVox/Battleship', '_blank');
 });
-
-document.querySelector('#howTo').addEventListener('pointerdown', showHowTo);
