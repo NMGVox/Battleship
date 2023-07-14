@@ -53,6 +53,7 @@ table {
 }
 
 body {
+	font-family: 'ironman', Georgia, 'Times New Roman', Times, serif;
     display: grid;
     justify-content: center;
     align-items: center;
@@ -144,7 +145,18 @@ button {
 	letter-spacing: 10px;
 	-webkit-text-stroke-color: #002647;
 	-webkit-text-stroke-width: 2px;
-	color: #bdbdbd; 
+	background: -webkit-linear-gradient(#eee, #8d8d8d);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	opacity: 0;
+	transition: all 2s;
+	position:relative;
+	top: -25%;
+}
+
+.title.show {
+	opacity:1;
+	top:0;
 }
 
 .gameArea {
@@ -162,8 +174,9 @@ button {
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(10, 1fr);
-    border: 2px solid black;
-	background-color: #265885;
+    border: 2px solid #002647;
+	background-image: url('./img/water.jpg');
+	background-size: cover;
 }
 
 .playerArea {
@@ -213,6 +226,7 @@ button {
 #instructions {
 	font-size: 3rem;
 	font-weight: bold;
+	color: #002647;
 }
 
 .hide {
@@ -239,6 +253,7 @@ button {
   .gamebtn:hover {
 	background: #fff;
 	color: #1a4a75;
+	border-color: #002647;
   }
 
 .footer {
@@ -247,6 +262,19 @@ button {
 	width: 100vw;
 	position:relative;
 	z-index: 4;
+	display:flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.footer-text {
+	font-size: 1.2rem;
+	letter-spacing: 1px;
+}
+
+.footer-text a{
+	text-decoration: none;
+	color: #1a4a75;
 }
 
 .waves {
@@ -269,7 +297,7 @@ button {
 	position: absolute;
 	top: -80%;
 	left: 40%;
-	transition: all 2s ease-in-out;
+	transition: top 2s ease-in-out;
 	display: flex;
 	flex-direction: column;
 	align-items: center;

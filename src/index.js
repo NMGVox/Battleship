@@ -96,6 +96,7 @@ function displayGameButton() {
     title.classList.add('title');
     title.textContent = "Battleship";
     div.appendChild(title);
+    setTimeout(() => { title.classList.add('show'); }, 100);
     let button = document.createElement('button');
     button.id = 'placeShips';
     button.classList.add('gamebtn');

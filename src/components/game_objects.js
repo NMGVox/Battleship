@@ -139,11 +139,11 @@ function gameBoardFactory() {
         }
         if (gameBoard.ships.includes(attackedSpace)) {
             attackedSpace.isHit();
-            gameBoard.spaceElements[x][y].style.backgroundColor = 'blue';
+            gameBoard.spaceElements[x][y].style.backgroundColor = '#0b9c2a';
             return [true, 'ship'];
         } if (gameBoard.spaces[x][y] === undefined) {
             gameBoard.spaces[x][y] = 'x';
-            gameBoard.spaceElements[x][y].style.backgroundColor = 'red';
+            gameBoard.spaceElements[x][y].style.backgroundColor = '#b30707';
             return [true, 'empty'];
         }
         return [false, null];
