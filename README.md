@@ -23,3 +23,7 @@ Technologies:
 #ESLint
 
 #babel-jest
+
+![battleship](https://github.com/NMGVox/Battleship/assets/87345234/cafb76d0-1dcc-430d-a465-b72bbc568cfe)
+
+[DEMO](https://nmgvox.github.io/Battleship/ "Battleship Demo")
